@@ -2,7 +2,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
-
+from datetime import datetime
 import keys2
 
 from twilio.rest import Client
@@ -21,9 +21,10 @@ soup=BeautifulSoup(webpage,'html.parser')
 
 rank=0
 rows=soup.findAll('tr')
-
-
-
+print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
+print("TOP 5 CRYPTOCURRENCIES AS OF " + datetime.now().strftime("%d/%m/%Y %H:%M:%S") )
+print("<><><><><><><><><><><><><><><><><><><><><><><><><><><><>")
+print()
 for x in rows[1:6]:
     cell=x.findAll('td')
     p=x.findAll("p")
@@ -37,14 +38,17 @@ for x in rows[1:6]:
     price=div[0].text
     change=cell[4].text
     price=price.replace(change,'')
+    print("==========================")
+    print("==========================")
     print(f' Rank: {rank}')
     print(f' Name: {curreny} ')
     print(f' Symbol: {symbol} ')
     print(f' Current Price: {price}')
     print(f' 24hr %Change: {change}')
+    print("==========================")
+    print("==========================")
     print()
-    print()
-    input()
+    input("Press enter for the next coin")
     
     if symbol=='BTC' and float(price.replace('$','').replace(',',''))<40000:
         textmessage=client.messages.create(to=myCellPhone, from_=TwilioNumber, body='The Price of Bitcoin has fallen below $40,000. The current price of Bitcoin is '+ price)
