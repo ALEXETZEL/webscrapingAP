@@ -44,7 +44,7 @@ for x in rows[1:6]:
     print(f' 24hr %Change: {change}')
     print()
     print()
-    
+    input()
     
     if symbol=='BTC' and float(price.replace('$','').replace(',',''))<40000:
         textmessage=client.messages.create(to=myCellPhone, from_=TwilioNumber, body='The Price of Bitcoin has fallen below $40,000. The current price of Bitcoin is '+ price)
